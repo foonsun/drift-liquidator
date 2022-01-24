@@ -83,6 +83,11 @@ fn main() {
             // Verify that the user is in liquidation territory
             let (_total_collateral, _unrealized_pnl, _base_asset_value, margin_ratio) =
                 calculate_margin_ratio(&user.1, &mut user_positions, &markets.1).unwrap();
+
+            if _total_collateral < 10 * 1_000_000 {
+                return;
+            }
+
             // is liquidatable
             if margin_ratio <= state.1.margin_ratio_partial {
                 let mut accounts = vec![
